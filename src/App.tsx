@@ -1,24 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import * as React from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import Ranking from './containers/Ranking';
+import Nav from './containers/Nav';
+import { makeStyles, createStyles, Theme, CssBaseline} from '@material-ui/core';
 
-function App() {
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      display: 'flex',
+    },
+  }),
+);
+
+const App: React.FC = () => {
+  const classes = useStyles();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={classes.root}>
+      <CssBaseline/>
+      <Nav />
+      <Switch>
+        <Route path="/all" component={Ranking} />
+        <Route path="/category/1" render={() => <Redirect to='/all'/>}/>
+        <Route
+          path="/category/:id"
+          render={
+            ({ match }): React.ReactElement => <Ranking categoryId={match.params.id} />
+          }
+        />
+      </Switch>
     </div>
   );
 }

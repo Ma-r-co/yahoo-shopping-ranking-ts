@@ -1,2 +1,2 @@
 # yahoo-shopping-ranking-ts
-This is a private project to learn TypeScript/React.
+This is a personal project to learn React/Typescirpt.
